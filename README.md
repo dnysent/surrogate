@@ -1,4 +1,4 @@
-# 🚀 Surrogate: image-based similarity search
+# 🚀 Surrogate: image-based similarity explorer
 
 ## 🛠 Prerequisites
 - **Python** >= 3.10
