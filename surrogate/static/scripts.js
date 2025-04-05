@@ -123,20 +123,34 @@ document.getElementById('settingsBtn').onclick = () => {
 
 document.getElementById('saveSettings').onclick = () => {
     const k = parseInt(document.getElementById('topK').value, 10);
-    const model = document.getElementById('modelSelect').value;
     const threshold = parseFloat(document.getElementById('threshold').value);
   
     if (!isNaN(k) && k > 0 && !isNaN(threshold)) {
       topK = k;
-      selectedModel = model;
       similarityThreshold = threshold;
   
-      alert(`Settings updated:\nTop-K: ${topK}\nModel: ${selectedModel}\nThreshold: ${similarityThreshold}`);
+      // alert(`Settings updated:\nTop-K: ${topK}\nThreshold: ${similarityThreshold}`);
       document.getElementById('settingsModal').style.display = 'none';
     } else {
       alert('Please enter valid values!');
     }
   };
+
+// document.getElementById("model-select").addEventListener("change", function() {
+//     fetch("/set_model", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({ model_name: model })
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//         console.log("Modell geändert:", data.model);
+//         // ggf. UI oder Embedding-Vorschau neu laden
+//       });
+//     });
+
   
 // document.getElementById('saveSettings').onclick = () => {
 //   const k = parseInt(document.getElementById('topK').value, 10);

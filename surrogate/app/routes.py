@@ -3,9 +3,14 @@ from .embeddings import EmbeddingManager
 from typing import List
 from fastapi.responses import JSONResponse
 from fastapi import UploadFile, File, Form
+from pydantic import BaseModel
 
 router = APIRouter()
 embedding_manager = EmbeddingManager()
+
+
+class ModelSelectRequest(BaseModel):
+    model_name: str
 
 
 @router.post("/upload_images")
