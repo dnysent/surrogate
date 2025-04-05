@@ -38,4 +38,4 @@ cd backend
 ```
 poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
-Open your browser and switch to `http://localhost:8000`
+Open your browser and switch to `http://0.0.0.0:8000`
