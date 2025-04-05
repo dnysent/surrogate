@@ -1,6 +1,8 @@
 # ignore contents of output folders in all directories, but not the folders themselves
 **/output/*
 !**/output/.gitkeep
+**/test_images/*
+!**/test_images/.gitkeep
 
 # ignore node modules
 node_modules

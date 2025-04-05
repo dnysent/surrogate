@@ -10,4 +10,5 @@ app.include_router(api_router, prefix="/api")
 
 # Frontend (statische Dateien) einbinden
 static_dir = Path(__file__).parent.parent / "static"
+print(static_dir)
 app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
