@@ -87,7 +87,7 @@ function sortAndHighlightImages(closestImages) {
             } else {
                 setTileBorder(tileElement, 'yellow');
             }
-            setSimilarityLabel(tileElement, imgData.similarity.toFixed(2));
+            setSimilarityLabel(tileElement, imgData.similarity.toFixed(4));
             grid.appendChild(tileElement);
         }
     });
@@ -102,7 +102,7 @@ function sortAndHighlightImages(closestImages) {
 
 function setTileBorder(tile, color) {
     const img = tile.querySelector('img');
-    img.style.border = `6px solid ${color}`;
+    img.style.border = `8px solid ${color}`;
 }
 
 function setSimilarityLabel(tile, text) {
@@ -135,30 +135,3 @@ document.getElementById('saveSettings').onclick = () => {
       alert('Please enter valid values!');
     }
   };
-
-// document.getElementById("model-select").addEventListener("change", function() {
-//     fetch("/set_model", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({ model_name: model })
-//       })
-//       .then(response => response.json())
-//       .then(data => {
-//         console.log("Modell geändert:", data.model);
-//         // ggf. UI oder Embedding-Vorschau neu laden
-//       });
-//     });
-
-  
-// document.getElementById('saveSettings').onclick = () => {
-//   const k = parseInt(document.getElementById('topK').value, 10);
-//   if (!isNaN(k) && k > 0) {
-//     topK = k;
-//     // alert(`Top-K set to ${topK}`);
-//     document.getElementById('settingsModal').style.display = 'none';
-//   } else {
-//     alert('Please enter a valid number > 0');
-//   }
-// };
