@@ -1,7 +1,7 @@
 const BASE_URL = "";
-let topK = 5;
+let topK = 3;
 let selectedModel = "laion_openclip";
-let similarityThreshold = 0.5;
+let similarityThreshold = 0.73;
 
 document.getElementById('multipleImages').addEventListener('change', async function(event) {
     const files = event.target.files;
