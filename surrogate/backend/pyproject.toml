@@ -1,8 +1,5 @@
 [tool.poetry]
-name = "image-app-backend"
-version = "0.1.0"
-description = "Backend für Image Application mit OpenClip"
-authors = ["Your Name"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -2,7 +2,7 @@ import numpy as np
 import open_clip
 import torch
 from scipy.spatial import KDTree
-from models import ImageEmbedding
+from .models import ImageEmbedding
 from typing import List, Tuple
 from fastapi import UploadFile
 

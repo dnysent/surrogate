@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File
-from embeddings import EmbeddingManager
+from .embeddings import EmbeddingManager
 from typing import List
 from fastapi.responses import JSONResponse
 
