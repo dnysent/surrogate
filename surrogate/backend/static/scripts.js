@@ -1,4 +1,4 @@
-const BASE_URL = ""; // Da Frontend & Backend nun dieselbe IP haben
+const BASE_URL = "";
 
 document.getElementById('multipleImages').addEventListener('change', async function(event) {
     const files = event.target.files;
@@ -9,7 +9,8 @@ document.getElementById('multipleImages').addEventListener('change', async funct
         method: 'POST',
         body: formData
     });
-    const data = await response.json();
+    await response.json();
+
     displayImages(files);
 });
 
@@ -23,7 +24,8 @@ document.getElementById('singleImage').addEventListener('change', async function
         body: formData
     });
     const data = await response.json();
-    highlightTopImages(data.closest_images);
+
+    sortAndHighlightImages(data.closest_images);
     displayLargeImage(file);
 });
 
@@ -35,12 +37,42 @@ function displayImages(files) {
         const img = document.createElement('img');
         img.src = url;
         img.classList.add('tile');
+        img.setAttribute('data-filename', file.name); // Wichtig!
+        img.style.border = '3px solid grey';
         container.appendChild(img);
     });
 }
 
-function highlightTopImages(imageIds) {
-    // Hervorheben der Kacheln basierend auf imageIds (grüne Rahmen etc.)
+function sortAndHighlightImages(closestImages) {
+    const grid = document.getElementById('image-grid');
+    const images = Array.from(grid.children);
+
+    // Mapping filename → img Element
+    const imgMap = {};
+    images.forEach(img => {
+        const filename = img.getAttribute('data-filename');
+        imgMap[filename] = img;
+        img.style.border = '3px solid grey'; // Zurücksetzen
+    });
+
+    // Container leeren
+    grid.innerHTML = '';
+
+    // zuerst closestImages anhängen, sortiert
+    closestImages.forEach(imgData => {
+        const imgElement = imgMap[imgData.id];
+        if (imgElement) {
+            imgElement.style.border = '4px solid green';
+            grid.appendChild(imgElement);
+        }
+    });
+
+    // dann restliche Bilder anhängen
+    Object.keys(imgMap).forEach(filename => {
+        if (!closestImages.some(imgData => imgData.id === filename)) {
+            grid.appendChild(imgMap[filename]);
+        }
+    });
 }
 
 function displayLargeImage(file) {

@@ -15,5 +15,7 @@ async def upload_images(files: List[UploadFile] = File(...)):
 
 @router.post("/query_image")
 async def query_image(file: UploadFile, top_k: int = 3):
-    closest_images = await embedding_manager.query_similar_images(file, top_k=top_k)
+    closest_images = await embedding_manager.query_similar_images_with_scores(
+        file, top_k=top_k
+    )
     return JSONResponse({"closest_images": closest_images})
