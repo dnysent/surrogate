@@ -34,45 +34,72 @@ function displayImages(files) {
     container.innerHTML = '';
     Array.from(files).forEach(file => {
         const url = URL.createObjectURL(file);
-        const img = document.createElement('img');
-        img.src = url;
-        img.classList.add('tile');
-        img.setAttribute('data-filename', file.name); // Wichtig!
-        img.style.border = '3px solid grey';
-        container.appendChild(img);
+        const imgContainer = createImageTile(url, file.name);
+        container.appendChild(imgContainer);
     });
+}
+
+function createImageTile(url, filename) {
+    const container = document.createElement('div');
+    container.classList.add('tile-container');
+
+    const img = document.createElement('img');
+    img.src = url;
+    img.classList.add('tile');
+    img.setAttribute('data-filename', filename);
+
+    const label = document.createElement('div');
+    label.classList.add('similarity-label');
+    label.innerText = '';  // leer initial
+
+    container.appendChild(img);
+    container.appendChild(label);
+
+    return container;
 }
 
 function sortAndHighlightImages(closestImages) {
     const grid = document.getElementById('image-grid');
-    const images = Array.from(grid.children);
+    const tiles = Array.from(grid.children);
 
-    // Mapping filename → img Element
-    const imgMap = {};
-    images.forEach(img => {
-        const filename = img.getAttribute('data-filename');
-        imgMap[filename] = img;
-        img.style.border = '3px solid grey'; // Zurücksetzen
+    // Mapping filename → tile Container
+    const tileMap = {};
+    tiles.forEach(tile => {
+        const filename = tile.querySelector('img').getAttribute('data-filename');
+        tileMap[filename] = tile;
+        setTileBorder(tile, 'red');  // initial rot für alle
+        setSimilarityLabel(tile, ''); // reset similarity
     });
 
-    // Container leeren
+    // Container leeren und neu befüllen
     grid.innerHTML = '';
 
-    // zuerst closestImages anhängen, sortiert
+    // zuerst closestImages anhängen (grün), sortiert
     closestImages.forEach(imgData => {
-        const imgElement = imgMap[imgData.id];
-        if (imgElement) {
-            imgElement.style.border = '4px solid green';
-            grid.appendChild(imgElement);
+        const tileElement = tileMap[imgData.id];
+        if (tileElement) {
+            setTileBorder(tileElement, 'green');
+            setSimilarityLabel(tileElement, imgData.similarity.toFixed(2));
+            grid.appendChild(tileElement);
         }
     });
 
-    // dann restliche Bilder anhängen
-    Object.keys(imgMap).forEach(filename => {
+    // dann restliche Bilder anhängen (rot)
+    Object.keys(tileMap).forEach(filename => {
         if (!closestImages.some(imgData => imgData.id === filename)) {
-            grid.appendChild(imgMap[filename]);
+            grid.appendChild(tileMap[filename]);
         }
     });
+}
+
+function setTileBorder(tile, color) {
+    const img = tile.querySelector('img');
+    img.style.border = `4px solid ${color}`;
+}
+
+function setSimilarityLabel(tile, text) {
+    const label = tile.querySelector('.similarity-label');
+    label.innerText = text ? `Similarity: ${text}` : '';
 }
 
 function displayLargeImage(file) {
