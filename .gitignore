@@ -1,0 +1,69 @@
+# ignore contents of output folders in all directories, but not the folders themselves
+**/output/*
+!**/output/.gitkeep
+
+# ignore node modules
+node_modules
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+*.env
+
+# Distribution / packaging
+.Python
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+*.cover
+coverage.xml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE / Editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# PyInstaller specific
+*.spec
+
+# pipenv & poetry
+Pipfile
+test-reports/
+poetry.lock
+
+# MyPy
+.mypy_cache/
+
+# Pyre
+.pyre/
+
+# Pylint
+.pylint.d/
+
+# macOS specific
+*.DS_Store% 
