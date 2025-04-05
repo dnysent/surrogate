@@ -9,7 +9,7 @@
 ## 📂 Project Structure
 ```
 surrogate/
-├── backend/
+├── surrogate/
 │   ├── app/
 │   │   ├── main.py
 │   │   ├── embeddings.py
@@ -21,12 +21,12 @@ surrogate/
 │   │   └── styles.css
 │   └── pyproject.toml
 └── README.md
+└── LICENSE
 ```
 
 ---
 
 ## 🔧 Installation & Deployment
-cd backend
 ```
 poetry install
 ```
@@ -34,7 +34,6 @@ poetry install
 ---
 
 ## 🚀 Run application
-cd backend
 ```
 poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
