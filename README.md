@@ -2,7 +2,7 @@
 
 ## 🛠 Prerequisites
 - **Python** >= 3.10
-- **Poetry** (https://python-poetry.org/docs/)
+- **Poetry** (install instructions: https://python-poetry.org/docs/)
 - **Node.js** (optional, for additional frontend-extensions. To install: `sudo apt install nodejs`)
 ---
 
