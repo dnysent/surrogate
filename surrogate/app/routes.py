@@ -9,10 +9,6 @@ router = APIRouter()
 embedding_manager = EmbeddingManager()
 
 
-class ModelSelectRequest(BaseModel):
-    model_name: str
-
-
 @router.post("/upload_images")
 async def upload_images(files: List[UploadFile] = File(...)):
     embeddings = await embedding_manager.store_embeddings(files)
