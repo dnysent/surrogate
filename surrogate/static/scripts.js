@@ -1,5 +1,7 @@
 const BASE_URL = "";
-let topK = 5; // default value
+let topK = 5;
+let selectedModel = "laion_openclip";
+let similarityThreshold = 0.5;
 
 document.getElementById('multipleImages').addEventListener('change', async function(event) {
     const files = event.target.files;
@@ -20,6 +22,8 @@ document.getElementById('singleImage').addEventListener('change', async function
     const formData = new FormData();
     formData.append("file", file);
     formData.append("top_k", topK.toString());
+    formData.append("selected_model", selectedModel.toString());
+    formData.append("similarity_threshold", similarityThreshold.toString());
 
     const response = await fetch(`${BASE_URL}/api/query_image`, {
         method: 'POST',
@@ -80,7 +84,11 @@ function sortAndHighlightImages(closestImages) {
     closestImages.forEach(imgData => {
         const tileElement = tileMap[imgData.id];
         if (tileElement) {
-            setTileBorder(tileElement, 'green');
+            if (imgData.similarity >= similarityThreshold) {
+                setTileBorder(tileElement, 'green');
+            } else {
+                setTileBorder(tileElement, 'yellow');
+            }
             setSimilarityLabel(tileElement, imgData.similarity.toFixed(2));
             grid.appendChild(tileElement);
         }
@@ -96,7 +104,7 @@ function sortAndHighlightImages(closestImages) {
 
 function setTileBorder(tile, color) {
     const img = tile.querySelector('img');
-    img.style.border = `4px solid ${color}`;
+    img.style.border = `6px solid ${color}`;
 }
 
 function setSimilarityLabel(tile, text) {
@@ -116,12 +124,29 @@ document.getElementById('settingsBtn').onclick = () => {
 };
 
 document.getElementById('saveSettings').onclick = () => {
-  const k = parseInt(document.getElementById('topK').value, 10);
-  if (!isNaN(k) && k > 0) {
-    topK = k;
-    // alert(`Top-K set to ${topK}`);
-    document.getElementById('settingsModal').style.display = 'none';
-  } else {
-    alert('Please enter a valid number > 0');
-  }
-};
+    const k = parseInt(document.getElementById('topK').value, 10);
+    const model = document.getElementById('modelSelect').value;
+    const threshold = parseFloat(document.getElementById('threshold').value);
+  
+    if (!isNaN(k) && k > 0 && !isNaN(threshold)) {
+      topK = k;
+      selectedModel = model;
+      similarityThreshold = threshold;
+  
+      alert(`Settings updated:\nTop-K: ${topK}\nModel: ${selectedModel}\nThreshold: ${similarityThreshold}`);
+      document.getElementById('settingsModal').style.display = 'none';
+    } else {
+      alert('Please enter valid values!');
+    }
+  };
+  
+// document.getElementById('saveSettings').onclick = () => {
+//   const k = parseInt(document.getElementById('topK').value, 10);
+//   if (!isNaN(k) && k > 0) {
+//     topK = k;
+//     // alert(`Top-K set to ${topK}`);
+//     document.getElementById('settingsModal').style.display = 'none';
+//   } else {
+//     alert('Please enter a valid number > 0');
+//   }
+// };
