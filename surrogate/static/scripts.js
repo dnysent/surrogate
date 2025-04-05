@@ -1,4 +1,5 @@
 const BASE_URL = "";
+let topK = 5; // default value
 
 document.getElementById('multipleImages').addEventListener('change', async function(event) {
     const files = event.target.files;
@@ -18,6 +19,7 @@ document.getElementById('singleImage').addEventListener('change', async function
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("top_k", topK.toString());
 
     const response = await fetch(`${BASE_URL}/api/query_image`, {
         method: 'POST',
@@ -107,3 +109,19 @@ function displayLargeImage(file) {
     const url = URL.createObjectURL(file);
     container.innerHTML = `<img src="${url}" class="large-tile">`;
 }
+
+document.getElementById('settingsBtn').onclick = () => {
+  const modal = document.getElementById('settingsModal');
+  modal.style.display = modal.style.display === 'none' ? 'block' : 'none';
+};
+
+document.getElementById('saveSettings').onclick = () => {
+  const k = parseInt(document.getElementById('topK').value, 10);
+  if (!isNaN(k) && k > 0) {
+    topK = k;
+    // alert(`Top-K set to ${topK}`);
+    document.getElementById('settingsModal').style.display = 'none';
+  } else {
+    alert('Please enter a valid number > 0');
+  }
+};
