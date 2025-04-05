@@ -25,7 +25,7 @@ class EmbeddingManager:
         return embeddings
 
     async def query_similar_images_with_scores(
-        self, file: UploadFile, top_k: int, model: str, similarity_threshold: float
+        self, file: UploadFile, top_k: int
     ) -> List[dict]:
         query_tensor = self.preprocess_image(await file.read())
         query_embedding = self.get_embedding(query_tensor)

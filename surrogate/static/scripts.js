@@ -22,8 +22,6 @@ document.getElementById('singleImage').addEventListener('change', async function
     const formData = new FormData();
     formData.append("file", file);
     formData.append("top_k", topK.toString());
-    formData.append("selected_model", selectedModel.toString());
-    formData.append("similarity_threshold", similarityThreshold.toString());
 
     const response = await fetch(`${BASE_URL}/api/query_image`, {
         method: 'POST',

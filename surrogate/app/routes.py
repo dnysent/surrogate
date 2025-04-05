@@ -18,13 +18,9 @@ async def upload_images(files: List[UploadFile] = File(...)):
 async def query_image(
     file: UploadFile = File(...),
     top_k: int = Form(...),
-    selected_model: str = Form(...),
-    similarity_threshold: float = Form(...),
 ):
     closest_images = await embedding_manager.query_similar_images_with_scores(
         file,
         top_k=top_k,
-        model=selected_model,
-        similarity_threshold=similarity_threshold,
     )
     return JSONResponse({"closest_images": closest_images})
