@@ -50,7 +50,7 @@ class EmbeddingManager:
         from PIL import Image
         import io
 
-        image = Image.open(io.BytesIO(file_bytes)).convert("L")
+        image = Image.open(io.BytesIO(file_bytes)).convert("RGB")
         return self.preprocess(image).unsqueeze(0)
 
     def get_embedding(self, image_tensor: torch.Tensor) -> np.ndarray:
